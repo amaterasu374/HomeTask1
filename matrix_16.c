@@ -4,6 +4,16 @@
 
 #define EPS 1e-14
 
+    int col;
+    int rows;
+    int cols;
+    double sum;
+    double diff;
+    double res2;
+    double b2;
+    double s;
+    double exact;
+    
 double formula_f(int k, int n, int i, int j) {
     switch (k) {
         case 1: {
@@ -69,10 +79,10 @@ void build_b(int n, const double *A, double *b) {
     int index = (n + 1) / 2;
 
     for (int i = 0; i < n; ++i) {
-        double sum = 0.0;
+        sum = 0.0;
 
         for (int k = 0; k <= index; ++k) {
-            int col = 2 * k;
+            col = 2 * k;
             if (col < n) {
                 sum += A[i * n + col];
             }
@@ -83,8 +93,8 @@ void build_b(int n, const double *A, double *b) {
 }
 
 void print_matrix(int l, int n, const double *M, int m) {
-    int rows = (l < m) ? l : m;
-    int cols = (n < m) ? n : m;
+    rows = (l < m) ? l : m;
+    cols = (n < m) ? n : m;
 
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
@@ -95,16 +105,16 @@ void print_matrix(int l, int n, const double *M, int m) {
 }
 
 double residual_norm_system(int n, const double *A, const double *x, const double *b) {
-    double res2 = 0.0;
-    double b2 = 0.0;
+    res2 = 0.0;
+    b2 = 0.0;
 
     for (int i = 0; i < n; ++i) {
-        double sum = 0.0;
+        sum = 0.0;
         for (int j = 0; j < n; ++j) {
             sum += A[i * n + j] * x[j];
         }
 
-        double diff = sum - b[i];
+        diff = sum - b[i];
         res2 += diff * diff;
     }
 
@@ -120,11 +130,11 @@ double residual_norm_system(int n, const double *A, const double *x, const doubl
 }
 
 double error_norm(int n, const double *x) {
-    double s = 0.0;
+    s = 0.0;
 
     for (int i = 0; i < n; ++i) {
-        double exact = (i % 2 == 0) ? 1.0 : 0.0; // 1,0,1,0,...
-        double diff = x[i] - exact;
+        exact = (i % 2 == 0) ? 1.0 : 0.0; // 1,0,1,0,...
+        diff = x[i] - exact;
         s += diff * diff;
     }
 
