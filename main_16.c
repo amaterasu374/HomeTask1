@@ -9,6 +9,7 @@ int main(int argc, char **argv) {
     int n;
     int m;
     int k;
+    int solve_res;
     int *arr = NULL;
     double t;
     double residual;
@@ -17,6 +18,8 @@ int main(int argc, char **argv) {
     double *b = NULL;
     double *x = NULL;
     const char *filename = NULL;
+    clock_t start;
+    clock_t end;
 
     if (argc < 4) {
         fprintf(stderr, "ERROR: incorrect argc \n");
@@ -77,12 +80,12 @@ int main(int argc, char **argv) {
     printf("Matrix:\n");
     print_matrix(n, n, A, m);
 
-    clock_t start = clock();
-    int solve_res = jordan_solve(n, A, b, x, arr);
-    clock_t end = clock();
+    start = clock();
+    solve_res = jordan_solve(n, A, b, x, arr);
+    end = clock();
 
     if (solve_res != 0) {
-        fprintf(stderr, "ERROR: matrix\n");
+        fprintf(stderr, "ERROR: almost empty matrix\n");
         free(A);
         free(b);
         free(x);
